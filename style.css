@@ -434,6 +434,35 @@ h1 {
     border: none;
 }
 
+.video-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 8px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 99px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.video-link i {
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
     .profile-card {
