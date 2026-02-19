@@ -458,9 +458,41 @@ h1 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.video-link i {
-    margin-right: 8px;
-    font-size: 0.9rem;
+
+/* Video Slider */
+.videos-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 0 5px 15px 5px; /* Bottom padding for scrollbar */
+    scroll-snap-type: x mandatory;
+    margin-top: 15px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.videos-slider::-webkit-scrollbar {
+    height: 4px;
+}
+
+.videos-slider::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.videos-slider::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.video-slide {
+    flex: 0 0 240px; /* Fixed width for consistent cards */
+    scroll-snap-align: center;
+}
+
+.video-slide .video-container {
+    max-width: 100%;
+    margin: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
 /* Responsive */
