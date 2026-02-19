@@ -20,7 +20,13 @@
 }
 
 body {
-    background: var(--gradient-bg);
+    background-color: #0f172a;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(34, 197, 94, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -28,6 +34,20 @@ body {
     align-items: center;
     padding: 2rem 1rem;
     line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Background Animation Shapes */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
 }
 
 .container {
@@ -39,15 +59,46 @@ body {
 
 /* Glassmorphism Card Effect */
 .profile-card {
-    background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.15); /* Highlight top border */
     border-radius: 24px;
     padding: 3rem 2rem;
     text-align: center;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+        0 2px 4px -1px rgba(0, 0, 0, 0.06),
+        0 20px 25px -5px rgba(0, 0, 0, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.02); /* Inner subtle glow */
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine effect on card hover */
+.profile-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.profile-card:hover::after {
+    left: 150%;
+    transition: 1s ease-in-out;
 }
 
 .avatar-wrapper {
@@ -109,6 +160,7 @@ h1 {
     font-weight: 800;
     background: linear-gradient(to right, #fff, #94a3b8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
     letter-spacing: -0.025em;
@@ -187,9 +239,11 @@ h1 {
 }
 
 .btn-secondary:hover {
-    background: rgba(51, 65, 85, 0.8);
-    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .social-links {
@@ -202,12 +256,24 @@ h1 {
 .social-icon {
     color: var(--text-muted);
     font-size: 1.5rem;
-    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
 }
 
 .social-icon:hover {
     color: white;
-    transform: scale(1.1);
+    transform: translateY(-3px);
+    background: var(--primary);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+    border-color: transparent;
 }
 
 .footer {
@@ -239,6 +305,99 @@ h1 {
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
+
+.group-invite {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.group-invite b {
+    color: var(--accent);
+}
+
+.btn-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.75rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px; /* For font icons */
+}
+
+.btn-primary .btn-icon {
+    filter: brightness(0) invert(1);
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    line-height: 1.3;
+}
+
+/* Premium Zalo Button */
+.btn-zalo-pro {
+    background: #ffffff;
+    color: #0068ff;
+    border: 2px solid transparent;
+    box-shadow: 0 0 20px rgba(0, 104, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-zalo-pro:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 104, 255, 0.5);
+    background: #f8fafc;
+}
+
+/* Add a continuous pulse effect to show it's active */
+.btn-zalo-pro::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 12px;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: pulse-white 2s infinite;
+    z-index: -1;
+}
+
+@keyframes pulse-white {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+.btn-zalo-pro .btn-content {
+    justify-content: center;
+    font-weight: 700; /* Bold text for impact */
+    font-size: 1.05rem;
+}
+
+.btn-zalo-pro img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); /* Pop the icon */
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+}
 
 /* Responsive */
 @media (max-width: 480px) {
